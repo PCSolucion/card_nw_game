@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Barra de instrucciones -->
+        <div class="instruction-bar">
+            <span></span>
+        </div>
+        
+        <!-- Título -->
+        <div class="header">
+            <h1 class="game-title"></h1>
+        </div>
+        
+        <!-- Grid de cartas -->
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Las cartas se generarán dinámicamente con JavaScript -->
+        </div>
+        
+        <!-- Botón de reiniciar -->
+        <div class="restart-container">
+            <button class="restart-button" id="restartButton">🔄 REINICIAR</button>
+        </div>
+        
+        <!-- Panel de información -->
+        <div class="info-panel" id="infoPanel">
+            <div class="current-user" id="currentUser"></div>
+            <div class="prize-info" id="prizeInfo"></div>
+        </div>
+        
+        <!-- Indicador de estado de Twitch -->
+        
+    </div>
+    
+    <script src="config.js"></script>
+    <script src="prizes.js"></script>
+    <script src="twitch-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

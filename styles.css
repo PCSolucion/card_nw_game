@@ -1,0 +1,439 @@
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000000;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    padding-top: 20px;
+    position: relative;
+}
+
+/* Barra de instrucciones */
+.instruction-bar {
+    background: rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 15px;
+    padding: 10px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.instruction-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(138, 43, 226, 0.5);
+}
+
+.instruction-bar span {
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Header con título */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.game-title {
+    font-size: 36px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    letter-spacing: 2px;
+}
+
+.restart-button {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(145deg, #8a2be2, #6a1b9a);
+    border: 1px solid rgba(138, 43, 226, 0.6);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.restart-button:hover {
+    background: linear-gradient(145deg, #9a3bf2, #7a2bca);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+    transform: translateY(-2px);
+}
+
+.restart-button:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+/* Contenedor del botón de reiniciar */
+.restart-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+
+
+/* Grid de cartas */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    aspect-ratio: 2/3; /* Rectangular a lo alto */
+    background: linear-gradient(145deg, #2a2a4a, #1a1a3a);
+    border: 2px solid #381d6c;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+    user-select: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+/* Eliminado el efecto hover */
+
+/* Eliminado el efecto active */
+
+.card.flipped {
+    background: linear-gradient(145deg, #4a4a6a, #3a3a5a) !important;
+    border-color: #00ffff;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+    transform: rotateY(180deg);
+}
+
+/* Asegurar que las imágenes de fondo ocupen todo el espacio */
+.card[style*="background-image"] {
+    background-size: 116% 116% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    background-attachment: local !important;
+}
+
+/* Forzar que las imágenes ocupen todo el espacio de la carta */
+.card[style*="background-image"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    background-size: 100% 100% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    z-index: -1;
+}
+
+.card.flipped .card-number {
+    opacity: 0;
+}
+
+.card.flipped .card-content {
+    opacity: 1;
+    transform: rotateY(180deg);
+}
+
+.card-number {
+    font-size: 28px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: rotateY(0deg);
+    padding: 10px;
+}
+
+.card-prize-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-prize-name {
+    font-size: 10px;
+    color: #ff00ff;
+    text-shadow: 0 0 8px rgba(255, 0, 255, 0.7);
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 90%;
+    line-height: 1.2;
+}
+
+/* Panel de información */
+.info-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 200px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+}
+
+.current-user {
+    font-size: 14px;
+    color: #00ffff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+.prize-info {
+    font-size: 12px;
+    color: #ff00ff;
+    text-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+}
+
+/* Animaciones */
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(138, 43, 226, 0.6); }
+}
+
+.card.flipped {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 24px;
+    }
+    
+    .restart-button {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        max-width: 700px;
+    }
+    
+    .card {
+        font-size: 18px;
+    }
+    
+    .card-number {
+        font-size: 22px;
+        padding: 4px 8px;
+    }
+    
+    .card-prize-image {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .card-prize-name {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 400px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .card-number {
+        font-size: 18px;
+        padding: 3px 6px;
+    }
+    
+    .card-prize-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .card-prize-name {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .cards-grid {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 300px;
+    }
+}
+
+/* ========================================
+   INDICADOR DE ESTADO DE TWITCH
+   ======================================== */
+
+.twitch-status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 25px;
+    padding: 8px 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.status-indicator.connected {
+    background: #51cf66;
+    box-shadow: 0 0 10px rgba(81, 207, 102, 0.5);
+    animation: none;
+}
+
+.status-indicator.connecting {
+    background: #ffd43b;
+    box-shadow: 0 0 10px rgba(255, 212, 59, 0.5);
+    animation: pulse 1s infinite;
+}
+
+.status-indicator.error {
+    background: #ff6b6b;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    animation: pulse 0.5s infinite;
+}
+
+.status-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+/* Responsive para el indicador de Twitch */
+@media (max-width: 768px) {
+    .twitch-status {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+    }
+    
+    .status-indicator {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .status-text {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .twitch-status {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+    }
+    
+    .status-text {
+        font-size: 9px;
+    }
+}
