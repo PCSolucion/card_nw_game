@@ -82,19 +82,33 @@ function createCards() {
     const optimizedBackgroundImages = createOptimizedBackgroundArray();
     
     for (let i = 0; i < GAME_CONFIG.totalCards; i++) {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.dataset.index = i;
-        
         const prize = gameState.currentPrizes[i];
+        
+        // Determinar clase según el valor del premio
+        let prizeClass = '';
+        if (prize.amount >= 5000) {
+            prizeClass = 'mega-jackpot';
+        } else if (prize.amount >= 2000) {
+            prizeClass = 'high-prize';
+        } else if (prize.amount >= 1500) {
+            prizeClass = 'medium-prize';
+        } else {
+            prizeClass = 'low-prize';
+        }
+        
+        const card = document.createElement('div');
+        card.className = `card ${prizeClass}`;
+        card.dataset.index = i;
         
         card.style.backgroundImage = `url(${optimizedBackgroundImages[i]})`;
         
         card.innerHTML = `
             <div class="card-number">${i + 1}</div>
             <div class="card-content">
-                <img src="${prize.imageUrl}" alt="${prize.name}" class="card-prize-image" onerror="this.style.display='none'">
-                <div class="card-prize-name">${prize.emoji} ${prize.name}</div>
+                <div class="prize-container">
+                    <img src="${prize.imageUrl}" alt="${prize.name}" class="card-prize-image ${prize.isJackpot ? 'jackpot-image' : ''} ${prizeClass}" onerror="this.style.display='none'">
+                    <div class="card-prize-name ${prize.isJackpot ? 'jackpot-text' : ''} ${prizeClass}">${prize.amount.toLocaleString()} Oro</div>
+                </div>
             </div>
         `;
         
@@ -168,7 +182,7 @@ function flipCard(cardIndex) {
 // Mostrar información de la carta volteada
 function showCardInfo(cardNumber, prize) {
     currentUserElement.textContent = `🎯 Carta ${cardNumber}`;
-    prizeInfoElement.textContent = `🎁 ${prize.emoji} ${prize.name}`;
+    prizeInfoElement.textContent = `💰 ${prize.name}`;
     
     setTimeout(() => {
         currentUserElement.textContent = '';

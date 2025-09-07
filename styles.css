@@ -109,8 +109,6 @@ body {
     z-index: 1000;
 }
 
-
-
 /* Grid de cartas */
 .cards-grid {
     display: grid;
@@ -125,33 +123,181 @@ body {
     aspect-ratio: 2/3; /* Rectangular a lo alto */
     background: linear-gradient(145deg, #2a2a4a, #1a1a3a);
     border: 2px solid #381d6c;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.6s ease-in-out;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 4px 16px rgba(138, 43, 226, 0.2);
     user-select: none;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: transparent;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
-/* Eliminado el efecto hover */
+/* Efecto holográfico estático (sin animaciones) */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, 
+            transparent 30%, 
+            rgba(255, 0, 255, 0.2) 40%, 
+            rgba(0, 255, 255, 0.2) 50%, 
+            rgba(255, 255, 0, 0.2) 60%, 
+            transparent 70%),
+        linear-gradient(135deg, 
+            transparent 20%, 
+            rgba(255, 255, 255, 0.15) 30%, 
+            transparent 40%);
+    background-size: 100% 100%, 100% 100%;
+    opacity: 1;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: 15px;
+}
 
-/* Eliminado el efecto active */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 70%, rgba(255, 0, 255, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0.8;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 15px;
+}
+
+
+/* Efecto hover sutil */
+.card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        0 6px 20px rgba(138, 43, 226, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.card.flipped::before {
+    opacity: 0;
+}
+
+.card:active {
+    transform: translateY(-4px) scale(1.01);
+    transition: transform 0.1s ease;
+}
 
 .card.flipped {
-    background: linear-gradient(145deg, #4a4a6a, #3a3a5a) !important;
-    border-color: #00ffff;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #1a1a2e 75%, #16213e 100%) !important;
     transform: rotateY(180deg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Bordes exteriores según el nivel de premio */
+.mega-jackpot.flipped {
+    border: 6px solid #ffd700 !important;
+    box-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.8),
+        0 0 100px rgba(255, 215, 0, 0.6),
+        0 0 150px rgba(255, 215, 0, 0.4),
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        inset 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.high-prize.flipped {
+    border: 4px solid #c0c0c0 !important;
+    box-shadow: 
+        0 0 30px rgba(192, 192, 192, 0.6),
+        0 0 60px rgba(192, 192, 192, 0.4),
+        0 0 90px rgba(192, 192, 192, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        inset 0 0 15px rgba(192, 192, 192, 0.1);
+}
+
+.medium-prize.flipped {
+    border: 3px solid #cd7f32 !important;
+    box-shadow: 
+        0 0 20px rgba(205, 127, 50, 0.5),
+        0 0 40px rgba(205, 127, 50, 0.3),
+        0 0 60px rgba(205, 127, 50, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        inset 0 0 10px rgba(205, 127, 50, 0.1);
+}
+
+.low-prize.flipped {
+    border: 2px solid #d3d3d3 !important;
+    box-shadow: 
+        0 0 10px rgba(211, 211, 211, 0.4),
+        0 0 20px rgba(211, 211, 211, 0.3),
+        0 0 30px rgba(211, 211, 211, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        inset 0 0 5px rgba(211, 211, 211, 0.1);
+}
+
+.card.flipped::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+    animation: goldShimmer 3s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+.card.flipped::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+    animation: goldSweep 4s linear infinite;
+    z-index: 2;
+}
+
+@keyframes goldShimmer {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes goldSweep {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
 }
 
 /* Asegurar que las imágenes de fondo ocupen todo el espacio */
@@ -162,6 +308,8 @@ body {
     background-color: transparent !important;
     background-attachment: local !important;
 }
+
+/* Overlay eliminado para mantener las imágenes nítidas */
 
 /* Forzar que las imágenes ocupen todo el espacio de la carta */
 .card[style*="background-image"]::before {
@@ -187,16 +335,27 @@ body {
     transform: rotateY(180deg);
 }
 
+/* Efectos especiales eliminados para diseño limpio */
+
 .card-number {
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 900;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 
+        3px 3px 6px rgba(0, 0, 0, 0.9),
+        0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 25px rgba(0, 255, 255, 0.6);
     transition: opacity 0.3s ease;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 8px 12px;
-    border-radius: 8px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.85);
+    padding: 10px 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.7),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    z-index: 10;
+    position: relative;
 }
 
 .card-content {
@@ -210,28 +369,265 @@ body {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.6s ease-in-out;
     transform: rotateY(0deg);
-    padding: 10px;
+    padding: 12px;
+    z-index: 3;
+    background: transparent;
+    border-radius: 15px;
 }
 
+.prize-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
 .card-prize-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-    margin-bottom: 8px;
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    margin-bottom: 12px;
     object-fit: cover;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid #ffd700;
+    box-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.6),
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 0 10px rgba(255, 215, 0, 0.2);
+    background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-prize-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+    animation: imageShimmer 2s ease-in-out infinite alternate;
+}
+
+@keyframes imageShimmer {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.7;
+    }
 }
 
 .card-prize-name {
-    font-size: 10px;
-    color: #ff00ff;
-    text-shadow: 0 0 8px rgba(255, 0, 255, 0.7);
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffd700;
     text-align: center;
     word-wrap: break-word;
     max-width: 90%;
     line-height: 1.2;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(26, 26, 46, 0.9));
+    padding: 8px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 
+        0 0 10px rgba(255, 215, 0, 0.4),
+        inset 0 0 5px rgba(255, 215, 0, 0.1);
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 8px rgba(255, 215, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-prize-name::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    animation: textSweep 3s ease-in-out infinite;
+}
+
+@keyframes textSweep {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.card-prize-name:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ========================================
+   PREMIO GORDO MEGA JACKPOT (5,000 oro) - COLOR ORO AUTÉNTICO
+   ======================================== */
+.jackpot-image {
+    border: 6px solid #ffb347 !important;
+    box-shadow: 
+        0 0 50px rgba(255, 179, 71, 1),
+        0 0 100px rgba(255, 179, 71, 0.8),
+        0 0 150px rgba(255, 179, 71, 0.6),
+        0 0 200px rgba(255, 179, 71, 0.4),
+        0 8px 20px rgba(0, 0, 0, 0.5) !important;
+    position: relative;
+    transform: scale(1.1);
+}
+
+.jackpot-image::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: conic-gradient(from 0deg, transparent, #ffb347, transparent, #ffb347, transparent);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.jackpot-image::after {
+    content: '👑';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 24px;
+    filter: drop-shadow(0 0 10px rgba(255, 179, 71, 0.8));
+}
+
+.jackpot-text {
+    color: #ffb347 !important;
+    font-weight: 900 !important;
+    font-size: 20px !important;
+    text-shadow: 
+        3px 3px 6px rgba(0, 0, 0, 0.9),
+        0 0 25px rgba(255, 179, 71, 1),
+        0 0 50px rgba(255, 179, 71, 0.8),
+        0 0 75px rgba(255, 179, 71, 0.6),
+        0 0 100px rgba(255, 179, 71, 0.4) !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 46, 0.98)) !important;
+    border: 3px solid rgba(255, 179, 71, 0.8) !important;
+    box-shadow: 
+        0 0 30px rgba(255, 179, 71, 0.8),
+        inset 0 0 15px rgba(255, 179, 71, 0.3) !important;
+    transform: scale(1.05);
+    position: relative;
+}
+
+.jackpot-text::before {
+    content: '💰';
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.jackpot-text::after {
+    content: '💰';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+
+/* ========================================
+   PREMIOS ALTOS (2,000 oro) - PLATEADO
+   ======================================== */
+.high-prize.card-prize-image {
+    border: 3px solid #c0c0c0 !important;
+    box-shadow: 
+        0 0 20px rgba(192, 192, 192, 0.8),
+        0 0 40px rgba(192, 192, 192, 0.6),
+        0 0 60px rgba(192, 192, 192, 0.4),
+        0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.high-prize.card-prize-name {
+    color: #c0c0c0 !important;
+    font-weight: 800 !important;
+    font-size: 18px !important;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 15px rgba(192, 192, 192, 0.8),
+        0 0 25px rgba(192, 192, 192, 0.6) !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(26, 26, 46, 0.9)) !important;
+    border: 2px solid rgba(192, 192, 192, 0.7) !important;
+    box-shadow: 
+        0 0 20px rgba(192, 192, 192, 0.6),
+        inset 0 0 10px rgba(192, 192, 192, 0.2) !important;
+}
+
+/* ========================================
+   PREMIOS MEDIOS (1,500 oro) - BRONCE
+   ======================================== */
+.medium-prize.card-prize-image {
+    border: 2px solid #cd7f32 !important;
+    box-shadow: 
+        0 0 12px rgba(205, 127, 50, 0.7),
+        0 0 24px rgba(205, 127, 50, 0.5),
+        0 0 36px rgba(205, 127, 50, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.medium-prize.card-prize-name {
+    color: #cd7f32 !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.7),
+        0 0 10px rgba(205, 127, 50, 0.7),
+        0 0 20px rgba(205, 127, 50, 0.5) !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(26, 26, 46, 0.8)) !important;
+    border: 1px solid rgba(205, 127, 50, 0.6) !important;
+    box-shadow: 
+        0 0 12px rgba(205, 127, 50, 0.5),
+        inset 0 0 6px rgba(205, 127, 50, 0.2) !important;
+}
+
+/* ========================================
+   PREMIOS BAJOS (1,000 oro) - BLANCO APAGADO
+   ======================================== */
+.low-prize.card-prize-image {
+    border: 1px solid #d3d3d3 !important;
+    box-shadow: 
+        0 0 6px rgba(211, 211, 211, 0.4),
+        0 0 12px rgba(211, 211, 211, 0.3),
+        0 0 18px rgba(211, 211, 211, 0.2),
+        0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.low-prize.card-prize-name {
+    color: #d3d3d3 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    text-shadow: 
+        1px 1px 2px rgba(0, 0, 0, 0.6),
+        0 0 6px rgba(211, 211, 211, 0.4),
+        0 0 12px rgba(211, 211, 211, 0.3) !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(26, 26, 46, 0.7)) !important;
+    border: 1px solid rgba(211, 211, 211, 0.4) !important;
+    box-shadow: 
+        0 0 6px rgba(211, 211, 211, 0.3),
+        inset 0 0 4px rgba(211, 211, 211, 0.1) !important;
 }
 
 /* Panel de información */
@@ -293,17 +689,61 @@ body {
     }
     
     .card-number {
-        font-size: 22px;
-        padding: 4px 8px;
+        font-size: 26px;
+        padding: 6px 10px;
+        font-weight: 900;
     }
     
     .card-prize-image {
         width: 50px;
         height: 50px;
+        border-radius: 8px;
+        margin-bottom: 8px;
     }
     
     .card-prize-name {
-        font-size: 9px;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 6px 8px;
+    }
+    
+    .jackpot-text {
+        font-size: 12px !important;
+        font-weight: 900 !important;
+    }
+    
+    .jackpot-image::after {
+        font-size: 18px;
+        top: -12px;
+        right: -12px;
+    }
+    
+    .jackpot-text::before,
+    .jackpot-text::after {
+        font-size: 12px;
+    }
+    
+    .jackpot-text::before {
+        left: -20px;
+    }
+    
+    .jackpot-text::after {
+        right: -20px;
+    }
+    
+    /* Responsive para premios altos */
+    .high-prize.card-prize-name {
+        font-size: 14px !important;
+    }
+    
+    /* Responsive para premios medios */
+    .medium-prize.card-prize-name {
+        font-size: 13px !important;
+    }
+    
+    /* Responsive para premios bajos */
+    .low-prize.card-prize-name {
+        font-size: 12px !important;
     }
 }
 
@@ -319,17 +759,61 @@ body {
     }
     
     .card-number {
-        font-size: 18px;
-        padding: 3px 6px;
+        font-size: 22px;
+        padding: 5px 8px;
+        font-weight: 900;
     }
     
     .card-prize-image {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
+        border-radius: 6px;
+        margin-bottom: 6px;
     }
     
     .card-prize-name {
-        font-size: 8px;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 6px;
+    }
+    
+    .jackpot-text {
+        font-size: 11px !important;
+        font-weight: 900 !important;
+    }
+    
+    .jackpot-image::after {
+        font-size: 16px;
+        top: -10px;
+        right: -10px;
+    }
+    
+    .jackpot-text::before,
+    .jackpot-text::after {
+        font-size: 10px;
+    }
+    
+    .jackpot-text::before {
+        left: -18px;
+    }
+    
+    .jackpot-text::after {
+        right: -18px;
+    }
+    
+    /* Responsive para premios altos */
+    .high-prize.card-prize-name {
+        font-size: 12px !important;
+    }
+    
+    /* Responsive para premios medios */
+    .medium-prize.card-prize-name {
+        font-size: 11px !important;
+    }
+    
+    /* Responsive para premios bajos */
+    .low-prize.card-prize-name {
+        font-size: 10px !important;
     }
 }
 

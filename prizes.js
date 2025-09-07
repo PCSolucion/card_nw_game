@@ -2,116 +2,123 @@
 // CONFIGURACIÓN DE PREMIOS
 // ========================================
 
-// Configuración de premios con imagen y nombre
+// ========================================
+// CONFIGURACIÓN DE PREMIOS DE ORO
+// ========================================
+
+// Configuración de premios con cantidades de oro
 const PRIZES_CONFIG = [
+    // 7 premios de 1,000 oro
     {
         id: 1,
-        name: "Steam Gift Card $10",
-        imageUrl: "https://via.placeholder.com/100x100/8a2be2/ffffff?text=Steam",
-        emoji: "🎮"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
     {
         id: 2,
-        name: "Discord Nitro 1 mes",
-        imageUrl: "https://via.placeholder.com/100x100/5865f2/ffffff?text=Discord",
-        emoji: "🎁"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
     {
         id: 3,
-        name: "1000 bits",
-        imageUrl: "https://via.placeholder.com/100x100/9146ff/ffffff?text=Twitch",
-        emoji: "💰"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
     {
         id: 4,
-        name: "Emote personalizado",
-        imageUrl: "https://via.placeholder.com/100x100/ff00ff/ffffff?text=Emote",
-        emoji: "🎯"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
     {
         id: 5,
-        name: "VIP por 1 semana",
-        imageUrl: "https://via.placeholder.com/100x100/ffd700/000000?text=VIP",
-        emoji: "🌟"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
     {
         id: 6,
-        name: "Mod por 1 día",
-        imageUrl: "https://via.placeholder.com/100x100/00ff00/000000?text=Mod",
-        emoji: "🎪"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
     {
         id: 7,
-        name: "Overlay personalizado",
-        imageUrl: "https://via.placeholder.com/100x100/ff6b6b/ffffff?text=Overlay",
-        emoji: "🎨"
+        name: "1,000 Oro",
+        amount: 1000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
+    // 1 premio de 1,500 oro
     {
         id: 8,
-        name: "Playlist en stream",
-        imageUrl: "https://via.placeholder.com/100x100/4ecdc4/ffffff?text=Music",
-        emoji: "🎵"
+        name: "1,500 Oro",
+        amount: 1500,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
+    // 1 premio de 2,000 oro
     {
         id: 9,
-        name: "Pizza virtual",
-        imageUrl: "https://via.placeholder.com/100x100/ff8c42/ffffff?text=Pizza",
-        emoji: "🍕"
+        name: "2,000 Oro",
+        amount: 2000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png",
+        isJackpot: false
     },
+    // 1 premio gordo de 5,000 oro
     {
         id: 10,
-        name: "Cambio de nombre",
-        imageUrl: "https://via.placeholder.com/100x100/9b59b6/ffffff?text=Name",
-        emoji: "🎭"
-    },
-    {
-        id: 11,
-        name: "Shoutout especial",
-        imageUrl: "https://via.placeholder.com/100x100/e74c3c/ffffff?text=Shoutout",
-        emoji: "🎪"
-    },
-    {
-        id: 12,
-        name: "Juego de Steam",
-        imageUrl: "https://via.placeholder.com/100x100/3498db/ffffff?text=Game",
-        emoji: "🎮"
+        name: "5,000 Oro",
+        amount: 5000,
+        imageUrl: "https://res.cloudinary.com/pcsolucion/image/upload/v1756532956/coinpile_q2bwi9.png",
+        isJackpot: true
     }
 ];
 
 // ========================================
-// INSTRUCCIONES PARA EDITAR PREMIOS
+// INSTRUCCIONES PARA EDITAR PREMIOS DE ORO
 // ========================================
 
 /*
-PARA EDITAR LOS PREMIOS:
+SISTEMA DE PREMIOS DE ORO:
 
-1. CAMBIAR NOMBRE:
-   - Modifica el campo "name" de cada premio
-   - Ejemplo: "name": "Mi Nuevo Premio"
+1. DISTRIBUCIÓN ACTUAL:
+   - 7 premios de 1,000 oro (gem pouch icon)
+   - 1 premio de 1,500 oro (gem pouch icon)
+   - 1 premio de 2,000 oro (gem pouch icon)
+   - 1 premio gordo de 5,000 oro (coin pile icon)
 
-2. CAMBIAR IMAGEN:
-   - Reemplaza "imageUrl" con la URL de tu imagen
-   - Puedes usar URLs de internet o rutas locales
-   - Ejemplo: "imageUrl": "https://mi-sitio.com/imagen.jpg"
-   - O local: "imageUrl": "./images/mi-imagen.png"
+2. CAMBIAR CANTIDADES:
+   - Modifica el campo "amount" para cambiar la cantidad de oro
+   - Modifica el campo "name" para actualizar el texto mostrado
+   - Ejemplo: "amount": 2500, "name": "2,500 Oro"
 
-3. CAMBIAR EMOJI:
-   - Modifica el campo "emoji" 
-   - Ejemplo: "emoji": "🎉"
+3. CAMBIAR ICONOS:
+   - Gem pouch: https://res.cloudinary.com/pcsolucion/image/upload/v1756533278/gempoucht1_d7u0c0.png
+   - Coin pile: https://res.cloudinary.com/pcsolucion/image/upload/v1756532956/coinpile_q2bwi9.png
 
-4. AGREGAR NUEVOS PREMIOS:
-   - Copia un objeto existente y cambia el "id"
-   - Asegúrate de que el ID sea único
-   - El ID debe coincidir con la posición en el array
+4. PREMIO GORDO:
+   - Marca con "isJackpot": true para efectos especiales
+   - Solo debe haber UN premio gordo por juego
+   - Usa el icono de coin pile para el premio gordo
 
-5. ELIMINAR PREMIOS:
-   - Simplemente elimina la línea del premio
-   - Asegúrate de que queden exactamente 12 premios
+5. MEZCLA ALEATORIA:
+   - Los premios se mezclan automáticamente en cada juego
+   - La distribución se mantiene pero las posiciones cambian
 
-FORMATO DE IMAGEN RECOMENDADO:
-- Tamaño: 100x100 píxeles
-- Formato: PNG, JPG, o GIF
-- Fondo: Transparente o que combine con el tema
+NOTAS IMPORTANTES:
+- Mantén exactamente 10 premios
+- El premio gordo debe tener el mayor valor
+- Los iconos están optimizados para el tamaño de las cartas
 */
 
 // Exportar configuración
